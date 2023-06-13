@@ -6,19 +6,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 function HomePage(props) {
     const [search, setSearch] = useState("");
-    const [cartNumber,setCartNumber]=useState("");
+    const [cartNumber, setCartNumber] = useState("");
 
     useEffect(() => {
         props.getData();
     }, [props])
 
-    const handleSearchBtn=()=>{
+    const handleSearchBtn = () => {
         console.log(search);
         console.log(props);
     }
 
-    const handleAddBtn=()=>{
-        setCartNumber(prev=>String(Number(prev)+1));
+    const handleAddBtn = () => {
+        setCartNumber(prev => String(Number(prev) + 1));
     }
 
     return (
@@ -27,14 +27,13 @@ function HomePage(props) {
             <nav className="nav">
                 <img src="" alt="logo" className="logo" />
                 <div className="search-container">
-                    <input type="text" placeholder="Search" onChange={(e)=>setSearch(e.target.value)}/>
+                    <input type="text" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
                     <button type="button" className="btn btn-primary" onClick={handleSearchBtn}>Search</button>
                     <span>{search}</span>
                 </div>
                 <div className="user-cart-container">
-                    <Link to="/cart">cart</Link>
-                    <button>user</button>
-                    <button>cart</button>
+                    <Link to="/login"><button>user</button></Link>
+                    <Link to="/cart"><button>cart</button></Link>
                     <span>{cartNumber}</span>
                 </div>
             </nav>
