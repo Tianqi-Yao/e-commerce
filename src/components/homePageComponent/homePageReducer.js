@@ -6,7 +6,6 @@ const initialState = {
     cartData: [],
     userData: [],
     currentUser: null
-
 }
 
 const homePageReducer = (state = initialState, action) => {
