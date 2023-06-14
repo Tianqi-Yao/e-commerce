@@ -11,6 +11,21 @@ const setData = (payload) => ({
     payload
 })
 
+const addToCart = (payload) => ({
+    type: Actions.ADD_TO_CART,
+    payload
+})
+
+const addUser = (payload) => ({
+    type: Actions.ADD_USER,
+    payload
+})
+
+const setCurrnetUser = (payload) => ({
+    type: Actions.SET_CURRENT_USER,
+    payload
+})
+
 const getData = () => {
     return (dispatch) => {
         axios.get('https://jsonplaceholder.typicode.com/photos')
@@ -29,5 +44,8 @@ const getData = () => {
 
 export const actions = {
     setData,
-    getData
+    getData,
+    addToCart,
+    addUser,
+    setCurrnetUser
 };

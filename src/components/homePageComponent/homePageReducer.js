@@ -2,7 +2,11 @@ import Actions from '../../constants'
 
 const initialState = {
     data: [],
-    showData: []
+    showData: [],
+    cartData: [],
+    userData: [],
+    currentUser: null
+
 }
 
 const homePageReducer = (state = initialState, action) => {
@@ -16,6 +20,21 @@ const homePageReducer = (state = initialState, action) => {
             return {
                 ...state,
                 showData: action.payload
+            }
+        case Actions.ADD_TO_CART:
+            return {
+                ...state,
+                cartData: [...state.cartData, action.payload]  // ??? render 2 times
+            }
+        case Actions.ADD_USER:
+            return {
+                ...state,
+                userData: [...state.userData, action.payload]
+            }
+        case Actions.SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: action.payload
             }
         default:
             return { ...state }

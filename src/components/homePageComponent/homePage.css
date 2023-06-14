@@ -45,5 +45,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     min-height: 100vh;
-    height:fit-content
+    height:fit-content;
+    gap: 20px;
+    padding:30px
 }
