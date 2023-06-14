@@ -11,16 +11,17 @@ function HomePage(props) {
     const [cartNumber, setCartNumber] = useState("");
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        count +=1
-        console.log(count,"count");
+        count += 1
+        console.log(count, "count");
     });
 
 
     useEffect(() => {
         props.getData();
-        console.log(props.currentUser,"props.currentUser");
-        console.log(props.userData,"props.userData");
+        console.log("props.currentUser", props.currentUser);
+        console.log(props.userData, "props.userData");
     }, [])
 
     useEffect(() => {
@@ -41,12 +42,43 @@ function HomePage(props) {
     }
 
     const handleAddBtn = (item) => {
-        props.addToCart(item)  // 为什么2次？
-    }
-    const handleHeloBtn = () => {
-        console.log(props.cartData,"props.cartData")
+        const foundItem = loopCartTofindItem(item)
+        if (foundItem === null) {
+            item.num = 1
+            props.addToCart(item)  // 为什么2次？
+            props.updateCartDataToUser(props.currentUser)
+        } else {
+            // foundItem.num +=1  //??? 可以这么写吗 , read-only
+            // const editedCart = props.cartData.map((item)=>{
+            // })
+            props.editCartItemNum(foundItem)
+        }
+
     }
 
+    const handleLogoutBtn = () => {
+        props.removeCurrentUser()
+        props.emptyCart()
+        
+    }
+
+    const handleHeloBtn = () => {
+        console.log(props.cartData, "props.cartData")
+        console.log(props.userData, "props.userData")
+        console.log(props.currentUser, "props.props.currentUser")
+    }
+
+    // ******************help functions*************************
+    const loopCartTofindItem = (item) => {
+        let foundItem = null
+        props.cartData.forEach(element => {
+            if (item.title === element.title) {
+                console.log("find item!", element);
+                foundItem = element
+            }
+        });
+        return foundItem
+    }
     return (
         <div className="HomePage">
             <header className="header">E-COMMERCE {count}</header>
@@ -59,7 +91,15 @@ function HomePage(props) {
                     <span>{search}</span>
                 </div>
                 <div className="user-cart-container">
-                    <Link to="/login"><button>user</button></Link>
+                    <span>user: {props.currentUser === null ? "Guest" : `${props.currentUser.username}`}</span>
+                    <Link to="/login">
+                        {props.currentUser === null
+                            ?
+                            <button>Login</button>
+                            :
+                            <button onClick={handleLogoutBtn}>Logout</button>
+                        }
+                    </Link>
                     <Link to="/cart"><button>cart</button></Link>
                     <span>{cartNumber}</span>
                 </div>
@@ -90,7 +130,7 @@ const mapStateToProps = (store) => (
         showData: store.homepageReducer.showData,
         cartData: store.homepageReducer.cartData,
         userData: store.homepageReducer.userData,
-        currentUser:store.homepageReducer.currentUser
+        currentUser: store.homepageReducer.currentUser
     }
 )
 
@@ -98,7 +138,11 @@ const mapDispatchToProps = (dispatch) => (
     {
         getData: () => dispatch(actions.getData()),
         setData: (filtedData) => dispatch(actions.setData(filtedData)),
-        addToCart: (item) => dispatch(actions.addToCart(item))
+        addToCart: (item) => dispatch(actions.addToCart(item)),
+        editCartItemNum: (item) => dispatch(actions.editCartItemNum(item)),
+        updateCartDataToUser: (user) => dispatch(actions.updateCartDataToUser(user)),
+        emptyCart: () => dispatch(actions.emptyCart()),
+        removeCurrentUser: () => dispatch(actions.removeCurrentUser()),
     }
 )
 

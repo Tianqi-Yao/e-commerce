@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { actions } from '../homePageComponent/homePageActions'
 import { connect } from 'react-redux'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function LoginPage(props) {
     const [inLogin, setInLogin] = useState(true)
@@ -20,6 +20,8 @@ function LoginPage(props) {
         const foundUser = checkUserAndPassword(user)
         if (foundUser !== null) {
             props.setCurrentUser(foundUser)
+            // props.updateCartDataToUser(foundUser)
+            props.updateUserCartDataToCart(foundUser.cart)
             navigate('/')
         }
     }
@@ -36,6 +38,7 @@ function LoginPage(props) {
         if (user.rePassowrd === user.password) {
             props.addUser(user)
             props.setCurrentUser(user)
+            props.updateCartDataToUser(user)
             console.log(props.userData, "success add new user!");
             navigate('/')
         }
@@ -63,7 +66,7 @@ function LoginPage(props) {
 
     const loopUsersTofindUser = (user) => {
         let foundUser = null
-        const res = props.userData.forEach(element => {
+        props.userData.forEach(element => {
             if (user.username === element.username) {
                 console.log("find user!", element);
                 foundUser = element
@@ -103,6 +106,7 @@ function LoginPage(props) {
             {inLogin
                 ?
                 <>
+                    <Link to="/"><img src="" alt="logo" className="logo" /> </Link>
                     <h1>Login</h1>
                     <form onSubmit={e => handelSignIn(e)}>
                         <span>UserName: </span><input type="text" className="username" />
@@ -114,6 +118,7 @@ function LoginPage(props) {
                 :
                 // ??? btn type problem ??? 共用input？
                 <>
+                    <Link to="/"><img src="" alt="logo" className="logo" /></Link>
                     <h1>Register</h1>
                     <form onSubmit={e => handelSignUp(e)}>
                         <span>UserName: </span><input type="text" className="username" />
@@ -132,7 +137,6 @@ function LoginPage(props) {
 const mapStateToProps = (store) => (
     {
         data: store.homepageReducer.data,
-        showData: store.homepageReducer.showData,
         cartData: store.homepageReducer.cartData,
         userData: store.homepageReducer.userData,
 
@@ -141,11 +145,11 @@ const mapStateToProps = (store) => (
 
 const mapDispatchToProps = (dispatch) => (
     {
-        getData: () => dispatch(actions.getData()),
-        setData: (filtedData) => dispatch(actions.setData(filtedData)),
-        addToCart: (item) => dispatch(actions.addToCart(item)),
         addUser: (user) => dispatch(actions.addUser(user)),
-        setCurrentUser: (user) => dispatch(actions.setCurrnetUser(user)),
+        setCurrentUser: (user) => dispatch(actions.setCurrentUser(user)),
+        updateCartDataToUser: (user) => dispatch(actions.updateCartDataToUser(user)),
+        emptyCart: () => dispatch(actions.emptyCart()),
+        updateUserCartDataToCart: (cart) => dispatch(actions.updateUserCartDataToCart(cart)),
     }
 )
 

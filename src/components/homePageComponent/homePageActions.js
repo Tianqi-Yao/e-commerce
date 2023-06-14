@@ -16,13 +16,38 @@ const addToCart = (payload) => ({
     payload
 })
 
+const delFromCart = (payload) => ({
+    type: Actions.DEL_FROM_CART,
+    payload
+})
+
 const addUser = (payload) => ({
     type: Actions.ADD_USER,
     payload
 })
 
-const setCurrnetUser = (payload) => ({
+const setCurrentUser = (payload) => ({
     type: Actions.SET_CURRENT_USER,
+    payload
+})
+const editCartItemNum = (payload) => ({
+    type: Actions.EDIT_CART_ITEM_NUM,
+    payload
+})
+const removeCurrentUser = (payload) => ({
+    type: Actions.REMOVE_CURRENT_USER,
+    payload
+})
+const emptyCart = (payload) => ({
+    type: Actions.EMPTY_CART,
+    payload
+})
+const updateCartDataToUser = (payload) => ({
+    type: Actions.UPDATE_CART_DATA_TO_USER,
+    payload
+})
+const updateUserCartDataToCart = (payload) => ({
+    type: Actions.UPDATE_USER_CART_DATA_TO_CART,
     payload
 })
 
@@ -47,5 +72,11 @@ export const actions = {
     getData,
     addToCart,
     addUser,
-    setCurrnetUser
+    setCurrentUser,
+    delFromCart,
+    editCartItemNum,
+    removeCurrentUser,
+    emptyCart,
+    updateCartDataToUser,
+    updateUserCartDataToCart
 };
