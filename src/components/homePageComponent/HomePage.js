@@ -3,6 +3,7 @@ import { actions } from "./homePageActions";
 import "./homePage.css";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import img from '../../asset/images/logo192.png'
 
 let count = 0
 
@@ -43,11 +44,11 @@ function HomePage(props) {
 
     const handleAddBtn = (item) => {
         const foundItem = loopCartTofindItem(item)
-        console.log("foundItem",foundItem, props.currentUser);
+        console.log("foundItem", foundItem, props.currentUser);
         if (foundItem === null) {
             item.num = 1
             props.addToCart(item)  // 为什么2次？
-            if (props.currentUser!==null) {
+            if (props.currentUser !== null) {
                 props.updateCartDataToUser(props.currentUser)
             }
         } else {
@@ -62,7 +63,7 @@ function HomePage(props) {
     const handleLogoutBtn = () => {
         props.removeCurrentUser()
         props.emptyCart()
-        
+
     }
 
     const handleHeloBtn = () => {
@@ -86,9 +87,9 @@ function HomePage(props) {
         <div className="HomePage">
             <header className="header">E-COMMERCE {count}</header>
             <nav className="nav">
-                <img src="" alt="logo" className="logo" />
+                <img src={img} alt="logo" className="logo" />
                 <div className="search-container">
-                    <input type="text" placeholder="Search" onChange={(e) => setSearch(e.target.value)} />
+                    <input type="text" placeholder="Search" onChange={(e) => setSearch(e.target.value)} className="" />
                     <button type="button" className="btn btn-primary" onClick={handleSearchBtn}>Search</button>
                     <button type="button" className="btn btn-primary" onClick={handleHeloBtn}>help</button>
                     <span>{search}</span>
@@ -98,13 +99,14 @@ function HomePage(props) {
                     <Link to="/login">
                         {props.currentUser === null
                             ?
-                            <button>Login</button>
+                            <button className="btn btn-success">Login</button>
                             :
-                            <button onClick={handleLogoutBtn}>Logout</button>
+                            <button onClick={handleLogoutBtn} className="btn btn-danger">Logout</button>
                         }
                     </Link>
-                    <Link to="/cart"><button>cart</button></Link>
-                    <span>{cartNumber}</span>
+                    <Link to="/cart">
+                        <button type="button" class="btn btn-warning">Cart <span class="badge">{cartNumber}</span></button>
+                    </Link>
                 </div>
             </nav>
             <main className="main">
@@ -113,7 +115,7 @@ function HomePage(props) {
                         <img src={item.thumbnailUrl} alt="product" className="card-img-top" />
                         <div className="card-body">
                             <div className="card-title">ID: {item.id}</div>
-                            <div className="card-text">{item.title.slice(0,25)+"..."}</div>
+                            <div className="card-text card-text-mine">{item.title.slice(0, 50) + "..."}</div>
                             <button onClick={() => handleAddBtn(item)} className="btn btn-primary">add</button>
                         </div>
                     </div>

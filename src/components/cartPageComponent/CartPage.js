@@ -29,8 +29,8 @@ function CartPage(props) {
                         <img src={item.thumbnailUrl} alt="product" className="card-img-top" />
                         <div className="card-body">
                             <div className="card-title">ID: {item.id}</div>
-                            <div className="card-text">{item.title.slice(0, 25) + "..."}</div>
-                            <button onClick={() => handleDelBtn(item)}>del</button><span>num: {item.num}</span>
+                            <div className="card-text card-text-mine">{item.title.slice(0, 50) + "..."}</div>
+                            <button onClick={() => handleDelBtn(item)} className='btn btn-primary'>del</button><span>num: {item.num}</span>
                         </div>
                     </div>
                 ))}

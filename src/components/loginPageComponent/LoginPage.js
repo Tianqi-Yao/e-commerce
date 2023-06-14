@@ -2,6 +2,7 @@ import { useState } from "react";
 import { actions } from '../homePageComponent/homePageActions'
 import { connect } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom";
+import img from '../../asset/images/logo192.png'
 
 function LoginPage(props) {
     const [inLogin, setInLogin] = useState(true)
@@ -106,7 +107,7 @@ function LoginPage(props) {
             {inLogin
                 ?
                 <>
-                    <Link to="/"><img src="" alt="logo" className="logo" /> </Link>
+                    <Link to="/"><img src={img} alt="logo" className="logo" /> </Link>
                     <h1>Login</h1>
                     <form onSubmit={e => handelSignIn(e)}>
                         <span>UserName: </span><input type="text" className="username" />
@@ -118,7 +119,7 @@ function LoginPage(props) {
                 :
                 // ??? btn type problem ??? 共用input？
                 <>
-                    <Link to="/"><img src="" alt="logo" className="logo" /></Link>
+                    <Link to="/"><img src={img} alt="logo" className="logo" /></Link>
                     <h1>Register</h1>
                     <form onSubmit={e => handelSignUp(e)}>
                         <span>UserName: </span><input type="text" className="username" />
