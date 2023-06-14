@@ -56,7 +56,6 @@ const homePageReducer = (state = initialState, action) => {
                 ...state,
                 userData: state.userData.map((user)=>{
                     if(user.username === action.payload.username){
-                        console.log(state.cartData,"111111");
                         user.cart=state.cartData
                         return user
                     }else{

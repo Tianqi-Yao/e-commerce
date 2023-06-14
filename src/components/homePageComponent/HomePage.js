@@ -43,10 +43,13 @@ function HomePage(props) {
 
     const handleAddBtn = (item) => {
         const foundItem = loopCartTofindItem(item)
+        console.log("foundItem",foundItem, props.currentUser);
         if (foundItem === null) {
             item.num = 1
             props.addToCart(item)  // 为什么2次？
-            props.updateCartDataToUser(props.currentUser)
+            if (props.currentUser!==null) {
+                props.updateCartDataToUser(props.currentUser)
+            }
         } else {
             // foundItem.num +=1  //??? 可以这么写吗 , read-only
             // const editedCart = props.cartData.map((item)=>{
@@ -107,11 +110,11 @@ function HomePage(props) {
             <main className="main">
                 {props.showData.map((item) => (
                     <div className="card" key={item.id}>
-                        <img src={item.thumbnailUrl} alt="product" className="product-img" />
-                        <div className="product-info">
-                            <div className="product-id">{item.id}</div>
-                            <div className="product-title">{item.title}</div>
-                            <button onClick={() => handleAddBtn(item)}>add</button>
+                        <img src={item.thumbnailUrl} alt="product" className="card-img-top" />
+                        <div className="card-body">
+                            <div className="card-title">ID: {item.id}</div>
+                            <div className="card-text">{item.title.slice(0,25)+"..."}</div>
+                            <button onClick={() => handleAddBtn(item)} className="btn btn-primary">add</button>
                         </div>
                     </div>
                 )

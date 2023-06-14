@@ -26,10 +26,10 @@ function CartPage(props) {
             <main className='main'>
                 {props.cartData.map((item, i) => (
                     <div className="card" key={item.id}>
-                        <img src={item.thumbnailUrl} alt="product" className="product-img" />
-                        <div className="product-info">
-                            <div className="product-id">{item.id}</div>
-                            <div className="product-title">{item.title}</div>
+                        <img src={item.thumbnailUrl} alt="product" className="card-img-top" />
+                        <div className="card-body">
+                            <div className="card-title">ID: {item.id}</div>
+                            <div className="card-text">{item.title.slice(0, 25) + "..."}</div>
                             <button onClick={() => handleDelBtn(item)}>del</button><span>num: {item.num}</span>
                         </div>
                     </div>
